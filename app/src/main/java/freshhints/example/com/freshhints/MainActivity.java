@@ -1,6 +1,7 @@
 package freshhints.example.com.freshhints;
 
 import android.app.FragmentManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -14,7 +15,7 @@ import android.os.Build;
 import android.widget.Button;
 
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends FragmentActivity {
 
     Button addFoodButton;
     Button viewFoodButton;
