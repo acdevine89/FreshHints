@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">FreshHints</string>
+    <string name="add_food_button_text">Add Food</string>
+    <string name="view_food_button_text">View Food</string>
+    <string name="submit_food_button_text">Add Food to List</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

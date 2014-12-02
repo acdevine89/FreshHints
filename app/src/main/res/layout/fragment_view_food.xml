@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="64dp"
+android:padding="5dp">
+
+<TextView
+    android:id="@+id/name_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:text="Food Name"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="8dp"
+    android:textStyle="bold"/>
+
+<TextView
+    android:id="@+id/last_active_text"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_below="@+id/name_text"
+    android:textColor="#808080"
+    android:text="Days Left"
+    android:layout_marginLeft="15dp"
+    android:layout_marginTop="5dp"/>
+
+<Button
+    android:id="@+id/food_details_button"
+    android:text="Tips"
+    android:layout_width="80dp"
+    android:layout_height="50dp"
+    android:layout_toRightOf="@id/name_text"
+    android:layout_marginTop="3dp"
+    android:layout_marginLeft="80dp"
+    android:layout_marginRight="80dp"/>
+
+<Button
+    android:id="@+id/delete_button"
+    android:text="X"
+    android:layout_width="50dp"
+    android:layout_height="50dp"
+    android:layout_toRightOf="@id/food_details_button"
+    android:layout_marginTop="3dp"/>
+
+</RelativeLayout>
