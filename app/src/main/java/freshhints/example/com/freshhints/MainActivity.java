@@ -19,18 +19,21 @@ public class MainActivity extends FragmentActivity {
 
     Button addFoodButton;
     Button viewFoodButton;
-    FragmentManager fm;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (savedInstanceState == null) {
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.container, new PlaceholderFragment())
+
+        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
+
+        if (fragment == null) {
+            fragment = new MainMenuFragment();
+            fm.beginTransaction()
+                    .add(R.id.fragmentContainer, fragment)
                     .commit();
         }
-
     }
 
 
