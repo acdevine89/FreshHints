@@ -31,23 +31,6 @@ public class MainActivity extends FragmentActivity {
                     .commit();
         }
 
-    addFoodButton = (Button) findViewById(R.id.add_food_button);
-    viewFoodButton = (Button) findViewById(R.id.view_food_button);
-
-    addFoodButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //go to add food fragment
-        }
-    });
-
-    viewFoodButton.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View view) {
-            //go to view food fragment
-        }
-    });
-
     }
 
 
