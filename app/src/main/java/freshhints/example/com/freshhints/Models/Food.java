@@ -9,6 +9,12 @@ public class Food {
     private int daysLeft;
     private String tips;
 
+    public Food(String name, int daysLeft, String tips) {
+        this.name = name;
+        this.daysLeft = daysLeft;
+        this.tips = tips;
+    }
+
     public String getName() {
         return name;
     }
