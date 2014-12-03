@@ -14,7 +14,15 @@ public class FoodList extends ArrayList {
     Food kiwi = new Food("kiwi", 7, "keep kiwi fresh");
     Food lemon = new Food("lemon", 9, "keep lemon fresh");
 
-    public void addFoodToArrayList() {
-        Food[] foodList = {banana, peach, blackberries, apple, kiwi, lemon};
+    public ArrayList createAndReturnArrayList() {
+        ArrayList<Food> foodList = new ArrayList<Food>();
+        foodList.add(banana);
+        foodList.add(peach);
+        foodList.add(blackberries);
+        foodList.add(apple);
+        foodList.add(kiwi);
+        foodList.add(lemon);
+        return foodList;
     }
+
 }
