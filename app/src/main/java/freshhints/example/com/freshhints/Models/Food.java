@@ -1,4 +1,4 @@
-package freshhints.example.com.freshhints;
+package freshhints.example.com.freshhints.Models;
 
 /**
  * Created by anniedevine on 12/2/14.

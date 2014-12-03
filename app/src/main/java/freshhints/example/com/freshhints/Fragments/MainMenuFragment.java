@@ -1,7 +1,6 @@
-package freshhints.example.com.freshhints;
+package freshhints.example.com.freshhints.Fragments;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
@@ -9,12 +8,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import freshhints.example.com.freshhints.R;
+
 /**
  * Created by anniedevine on 12/2/14.
  */
 public class MainMenuFragment extends Fragment {
 
-    private Food mFood;
     private Button addFoodButton;
     private Button viewFoodButton;
     FragmentManager fm = getFragmentManager();
@@ -23,7 +23,6 @@ public class MainMenuFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mFood = new Food();
     }
 
     @Override
