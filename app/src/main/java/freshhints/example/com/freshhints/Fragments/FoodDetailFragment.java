@@ -1,4 +1,4 @@
-package freshhints.example.com.freshhints.Fragments;
+package freshhints.example.com.freshhints.fragments;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;

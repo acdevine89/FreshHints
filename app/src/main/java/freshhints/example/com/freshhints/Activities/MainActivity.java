@@ -1,34 +1,33 @@
-package freshhints.example.com.freshhints.Activities;
+package freshhints.example.com.freshhints.activities;
 
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
-import android.view.LayoutInflater;
+import android.support.v4.app.FragmentManager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 
-import freshhints.example.com.freshhints.Fragments.MainMenuFragment;
+import freshhints.example.com.freshhints.fragments.MainMenuFragment;
 import freshhints.example.com.freshhints.R;
+import freshhints.example.com.freshhints.interfaces.FragmentController;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements FragmentController {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        android.support.v4.app.FragmentManager fm = getSupportFragmentManager();
+        FragmentManager fm = getSupportFragmentManager();
         Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
-        if (fragment == null) {
+//        if (fragment == null) {
             fragment = new MainMenuFragment();
             fm.beginTransaction()
                     .add(R.id.fragmentContainer, fragment)
                     .commit();
-        }
+//        }
     }
 
 
@@ -55,19 +54,11 @@ public class MainActivity extends FragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    /**
-     * A placeholder fragment containing a simple view.
-     */
-    public static class PlaceholderFragment extends Fragment {
-
-        public PlaceholderFragment() {
-        }
-
-        @Override
-        public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                                 Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_main_menu, container, false);
-            return rootView;
-        }
+    @Override
+    public void swapFragment(Fragment targetFragment) {
+         getSupportFragmentManager().beginTransaction()
+                    .replace(R.id.fragmentContainer, targetFragment)
+                    .addToBackStack(null)
+                    .commit();
     }
 }
