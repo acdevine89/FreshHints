@@ -18,6 +18,7 @@ public class MainMenuFragment extends Fragment {
     private Button addFoodButton;
     private Button viewFoodButton;
     FragmentManager fm = getFragmentManager();
+    Fragment fragment = fm.findFragmentById(R.id.fragmentContainer);
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -35,14 +36,24 @@ public class MainMenuFragment extends Fragment {
         addFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                if (fragment == null) {
+                    fragment = new AddFoodFragment();
+                    fm.beginTransaction()
+                        .add(R.id.fragmentContainer, fragment)
+                        .commit();
+                }
             }
         });
 
         viewFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //go to view food fragment
+                if (fragment == null) {
+                    fragment = new ViewFoodFragment();
+                    fm.beginTransaction()
+                         .add(R.id.fragmentContainer, fragment)
+                         .commit();
+                }
             }
         });
 
