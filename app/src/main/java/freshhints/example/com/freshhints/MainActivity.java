@@ -17,9 +17,6 @@ import android.widget.Button;
 
 public class MainActivity extends FragmentActivity {
 
-    Button addFoodButton;
-    Button viewFoodButton;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

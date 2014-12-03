@@ -3,6 +3,7 @@ package freshhints.example.com.freshhints;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ public class MainMenuFragment extends Fragment {
     private Food mFood;
     private Button addFoodButton;
     private Button viewFoodButton;
+    FragmentManager fm = getFragmentManager();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,7 @@ public class MainMenuFragment extends Fragment {
         addFoodButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //go to add food fragment
+
             }
         });
 
