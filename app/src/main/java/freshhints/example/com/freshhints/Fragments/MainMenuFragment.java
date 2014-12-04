@@ -42,7 +42,6 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
         final Fragment newFragment = fm.findFragmentById(R.id.fragmentContainer);
 
         addFoodButton.setOnClickListener(this);
-
         viewFoodButton.setOnClickListener(this);
 
         return v;
@@ -51,19 +50,25 @@ public class MainMenuFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         switch(view.getId()) {
+
             case R.id.add_food_button:
                 Fragment addFragment = new AddFoodFragment();
                 if (fc != null) {
                     fc.swapFragment(addFragment);
                 }
                 break;
-                //add else to throw exception
+
             case R.id.view_food_button:
                 Fragment viewFragment = new ViewFoodFragment();
-                if (getActivity() instanceof FragmentController) {
-                    ((FragmentController) getActivity()).swapFragment(viewFragment);
+                if (fc != null) {
+                    fc.swapFragment(viewFragment);
                 }
+// Instead of:
+//              if (getActivity() instanceof FragmentController) {
+//                    ((FragmentController) getActivity()).swapFragment(viewFragment);
+//                }
                 break;
+
             default:
         }
 

@@ -7,6 +7,8 @@ import java.util.ArrayList;
  */
 public class FoodList extends ArrayList {
 
+    static ArrayList<Food> foodList = new ArrayList<Food>();
+
     Food banana = new Food("banana", 5, "keep bananas fresh");
     Food peach = new Food("peach", 6, "keep peaches fresh");
     Food blackberries = new Food("blackberries", 3, "keep blackberries fresh");
@@ -14,14 +16,16 @@ public class FoodList extends ArrayList {
     Food kiwi = new Food("kiwi", 7, "keep kiwi fresh");
     Food lemon = new Food("lemon", 9, "keep lemon fresh");
 
-    public ArrayList createAndReturnArrayList() {
-        ArrayList<Food> foodList = new ArrayList<Food>();
+    public void createFoodList() {
         foodList.add(banana);
         foodList.add(peach);
         foodList.add(blackberries);
         foodList.add(apple);
         foodList.add(kiwi);
         foodList.add(lemon);
+    }
+
+    public static ArrayList getFoodList() {
         return foodList;
     }
 
