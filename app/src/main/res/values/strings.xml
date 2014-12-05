@@ -6,5 +6,7 @@
     <string name="view_food_button_text">View Food</string>
     <string name="submit_food_button_text">Add Food to List</string>
     <string name="action_settings">Settings</string>
+    <string name="food_name">Food Name</string>
+    <string name="days_left">Days Left</string>
 
 </resources>
