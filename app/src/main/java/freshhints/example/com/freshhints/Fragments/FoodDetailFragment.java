@@ -7,11 +7,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import freshhints.example.com.freshhints.R;
+import freshhints.example.com.freshhints.models.Food;
 
 /**
  * Created by anniedevine on 12/3/14.
  */
 public class FoodDetailFragment extends Fragment {
+
+    private static final String ARG_FOOD_ITEM = "arg_food_item";
+
+    public static FoodDetailFragment newInstance(Food foodItem) {
+        Bundle args = new Bundle();
+      //  args.putParcelable(ARG_FOOD_ITEM, foodItem);
+
+        FoodDetailFragment foodDetailFragment = new FoodDetailFragment();
+        foodDetailFragment.setArguments(args);
+
+        return foodDetailFragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {

@@ -5,6 +5,7 @@ package freshhints.example.com.freshhints.models;
  */
 public class Food {
 
+    //private int foodID;
     private String name;
     private int daysLeft;
     private String tips;

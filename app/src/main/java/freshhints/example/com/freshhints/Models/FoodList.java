@@ -1,6 +1,7 @@
 package freshhints.example.com.freshhints.models;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by anniedevine on 12/3/14.
@@ -25,7 +26,7 @@ public class FoodList extends ArrayList {
         foodList.add(lemon);
     }
 
-    public static ArrayList getFoodList() {
+    public static List<Food> getFoodList() {
         return foodList;
     }
 
