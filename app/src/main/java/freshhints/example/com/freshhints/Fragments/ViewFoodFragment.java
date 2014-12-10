@@ -1,10 +1,6 @@
 package freshhints.example.com.freshhints.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +8,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import freshhints.example.com.freshhints.R;
 import freshhints.example.com.freshhints.adapters.FoodListAdapter;
 import freshhints.example.com.freshhints.interfaces.FragmentController;
 import freshhints.example.com.freshhints.models.Food;
-
-import static freshhints.example.com.freshhints.models.FoodList.getFoodList;
+import freshhints.example.com.freshhints.models.FoodListProvider;
 
 /**
  * Created by anniedevine on 12/3/14.
@@ -31,9 +25,7 @@ public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItem
 
     ListView foodListView;
     ArrayAdapter<Food> foodListAdapter;
-    ArrayList<Food> foodList = new ArrayList<Food>();
-
-
+    List<Food> foodList;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -45,10 +37,10 @@ public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItem
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-    foodListView = (ListView) getView().findViewById(R.id.fragment_view_food_list);
+    foodListView = (ListView) view.findViewById(R.id.fragment_view_food_list);
+    foodList = new FoodListProvider().getFoodList();
 
-    foodListAdapter =
-    new ArrayAdapter<Food>(getActivity(), R.layout.fragment_view_food_row, foodList);
+    foodListAdapter = new FoodListAdapter(getActivity(), foodList);
 
         foodListView.setAdapter(foodListAdapter);
         foodListView.setOnItemClickListener(this);
@@ -62,7 +54,5 @@ public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItem
             FoodDetailFragment foodDetailFragment = FoodDetailFragment.newInstance(foodItem);
             fc.swapFragment(foodDetailFragment);
         }
-
     }
-
 }

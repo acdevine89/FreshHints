@@ -8,6 +8,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
 
+import java.util.List;
+
 import freshhints.example.com.freshhints.R;
 import freshhints.example.com.freshhints.models.Food;
 
@@ -16,8 +18,8 @@ import freshhints.example.com.freshhints.models.Food;
  */
 public class FoodListAdapter extends ArrayAdapter<Food> {
 
-    public FoodListAdapter(Context context) {
-        super(context, R.layout.fragment_view_food_row);
+    public FoodListAdapter(Context context, List<Food> foods) {
+        super(context, R.layout.fragment_view_food_row, foods);
     }
 
     @Override
@@ -39,7 +41,7 @@ public class FoodListAdapter extends ArrayAdapter<Food> {
         Food foodItem = getItem(position);
 
         viewHolder.nameTextView.setText(foodItem.getName());
-        viewHolder.daysLeftTextView.setText(foodItem.getDaysLeft());
+        viewHolder.daysLeftTextView.setText(String.valueOf(foodItem.getDaysLeft()));
 //        viewHolder.foodDetailsButton.setText(foodItem.getTips());
 
         return convertView;
