@@ -14,6 +14,7 @@ import freshhints.example.com.freshhints.interfaces.FragmentController;
 
 public class MainActivity extends FragmentActivity implements FragmentController {
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

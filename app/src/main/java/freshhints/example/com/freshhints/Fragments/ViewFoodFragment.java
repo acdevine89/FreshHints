@@ -12,7 +12,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import freshhints.example.com.freshhints.R;
+import freshhints.example.com.freshhints.adapters.FoodListAdapter;
 import freshhints.example.com.freshhints.interfaces.FragmentController;
 import freshhints.example.com.freshhints.models.Food;
 
@@ -21,19 +25,15 @@ import static freshhints.example.com.freshhints.models.FoodList.getFoodList;
 /**
  * Created by anniedevine on 12/3/14.
  */
-public class ViewFoodFragment extends Fragment implements AdapterView.OnItemClickListener {
+public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     private FragmentController fc;
 
-    @Override
-    public void onAttach(Activity activity) {
-        super.onAttach(activity);
-        if (getActivity() instanceof FragmentController) {
-            fc = ((FragmentController) getActivity());
-        } else {
-            throw new IllegalArgumentException("Your activity must implement the FragmentController interface");
-        }
-    }
+    ListView foodListView;
+    ArrayAdapter<Food> foodListAdapter;
+    ArrayList<Food> foodList = new ArrayList<Food>();
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -42,14 +42,15 @@ public class ViewFoodFragment extends Fragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+    public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ArrayAdapter<Food> foodListAdapter =
-                new ArrayAdapter<Food>(getActivity(), android.R.layout.simple_list_item_1, getFoodList());
-        ListView foodListView = (ListView) getView().findViewById(R.id.fragment_view_food_list);
-        foodListView.setAdapter(foodListAdapter);
+    foodListView = (ListView) getView().findViewById(R.id.fragment_view_food_list);
 
+    foodListAdapter =
+    new ArrayAdapter<Food>(getActivity(), R.layout.fragment_view_food_row, foodList);
+
+        foodListView.setAdapter(foodListAdapter);
         foodListView.setOnItemClickListener(this);
     }
 
