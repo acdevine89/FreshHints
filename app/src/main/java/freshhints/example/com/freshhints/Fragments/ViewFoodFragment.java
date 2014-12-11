@@ -8,13 +8,15 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import freshhints.example.com.freshhints.R;
 import freshhints.example.com.freshhints.adapters.FoodListAdapter;
+import freshhints.example.com.freshhints.interfaces.FoodListLoaderListener;
 import freshhints.example.com.freshhints.interfaces.FragmentController;
 import freshhints.example.com.freshhints.models.Food;
-import freshhints.example.com.freshhints.models.FoodListProvider;
+import freshhints.example.com.freshhints.models.FoodListLoader;
 
 /**
  * Created by anniedevine on 12/3/14.
@@ -22,10 +24,18 @@ import freshhints.example.com.freshhints.models.FoodListProvider;
 public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     private FragmentController fc;
+    private FoodListLoaderListener listener = new FoodListLoaderListener() {
+        @Override
+        public void foodItemsLoaded(List<Food> foodItemList) {
+            foodList.addAll(foodItemList);
+            foodListAdapter.notifyDataSetChanged();
+        }
+    };
 
     ListView foodListView;
     ArrayAdapter<Food> foodListAdapter;
-    List<Food> foodList;
+    FoodListLoader foodListLoader;
+    List<Food> foodList = new ArrayList<Food>();
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -38,10 +48,10 @@ public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItem
         super.onViewCreated(view, savedInstanceState);
 
     foodListView = (ListView) view.findViewById(R.id.fragment_view_food_list);
-    foodList = new FoodListProvider().getFoodList();
+    foodListLoader = new FoodListLoader(listener);
+    foodListLoader.getFoodItems();
 
     foodListAdapter = new FoodListAdapter(getActivity(), foodList);
-
         foodListView.setAdapter(foodListAdapter);
         foodListView.setOnItemClickListener(this);
     }
