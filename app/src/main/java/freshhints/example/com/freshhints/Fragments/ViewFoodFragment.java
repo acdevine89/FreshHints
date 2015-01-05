@@ -42,7 +42,8 @@ public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItem
         View v = inflater.inflate(R.layout.fragment_view_food_list, container, false);
         return v;
     }
-//If switching to ListFragment, this will support showing a message when the list is empty
+
+// If switching to ListFragment, this will support showing a message when the list is empty
 //    @Override
 //    public void onActivityCreated(Bundle savedInstanceState) {
 //        super.onActivityCreated(savedInstanceState);

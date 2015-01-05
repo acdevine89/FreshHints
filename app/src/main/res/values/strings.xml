@@ -10,4 +10,16 @@
     <string name="days_left">Days Left</string>
     <string name="no_food_yet">No food yet</string>
 
+    <string name="apples">apples</string>
+    <string name="asparagus">asparagus</string>
+    <string name="avocados">avocados</string>
+    <string name="bananas">bananas</string>
+    <string name="blackberries">blackberries</string>
+    <string name="broccoli">broccoli</string>
+    <string name="cauliflower">cauliflower</string>
+    <string name="oranges">oranges</string>
+    <string name="potatoes">potatoes</string>
+    <string name="raspberries">raspberries</string>
+
+
 </resources>

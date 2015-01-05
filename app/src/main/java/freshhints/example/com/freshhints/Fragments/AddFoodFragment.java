@@ -38,15 +38,16 @@ public class AddFoodFragment extends BaseFragment implements View.OnClickListene
     @Override
     public void onClick(View view) {
         String enteredFood = addFoodField.getText().toString();
-        if(enteredFood.equalsIgnoreCase(getResources().getString(R.string.DB_foodName))) {
-            do something;
-        } else {
-            Toast toast = Toast.makeText(getActivity(), enteredFood + " is not currently in the food database. Sorry!", Toast.LENGTH_LONG);
-            toast.show();
-        }
 
-        //Food submittedFood = new Food();
-        //submittedFood.setName(submittedFoodText.getText().toString());
+//        for (int i = 0; i < foodItemList.length(); i++) {
+//            if(enteredFood.equalsIgnoreCase(foodItemList.get(i).getName()) {
+//
+//            } else {
+//                Toast toast = Toast.makeText(getActivity(), enteredFood + " is not currently in the food database. Sorry!", Toast.LENGTH_LONG);
+//                toast.show();
+//            }
+
+//        }
 
     }
 }
