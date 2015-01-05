@@ -26,8 +26,9 @@ public class AddFoodFragment extends BaseFragment implements View.OnClickListene
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_add_food, container, false);
 
-//        Button submitFoodButton = (Button) getView().findViewById(R.id.submit_food_button);
-//        submitFoodButton.setOnClickListener(this);
+        EditText addFoodField = (EditText) v.findViewById(R.id.add_food_edit_text);
+        Button submitFoodButton = (Button) getView().findViewById(R.id.submit_food_button);
+        submitFoodButton.setOnClickListener(this);
 
         return v;
     }
