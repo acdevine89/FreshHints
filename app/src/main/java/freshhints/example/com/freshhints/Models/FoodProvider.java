@@ -28,9 +28,12 @@ public class FoodProvider extends ContentProvider {
             + COLUMN_DAYSLEFT + " integer not null, " + COLUMN_TIPS
             + " text not null);";
 
+    private SQLiteDatabase mDb;
+
     @Override
     public boolean onCreate() {
-        return false;
+        mDb = new DatabaseHelper(getContext()).getWritableDatabase();
+        return true;
     }
 
     @Override
