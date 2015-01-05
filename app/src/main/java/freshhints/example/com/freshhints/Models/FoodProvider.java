@@ -15,6 +15,11 @@ public class FoodProvider extends ContentProvider {
     private static final String DATABASE_NAME = "food_data";
     private static final String DATABASE_TABLE = "food_table";
 
+    public static final String COLUMN_FOODID = "_id";
+    public static final String COLUMN_NAME = "name";
+    public static final String COLUMN_DAYSLEFT = "days_left";
+    public static final String COLUMN_TIPS = "tips";
+
     @Override
     public boolean onCreate() {
         return false;
