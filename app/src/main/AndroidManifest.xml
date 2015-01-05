@@ -4,6 +4,12 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <provider
+        android:name="freshhints.example.com.freshhints.models.FoodProvider"
+        android:authorities="freshhints.example.com.freshhints.models.FoodProvider"
+        android:exported="false"
+    />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
