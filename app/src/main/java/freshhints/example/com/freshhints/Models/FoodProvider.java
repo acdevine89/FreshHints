@@ -4,6 +4,7 @@ import android.content.ContentProvider;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.UriMatcher;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -63,6 +64,10 @@ public class FoodProvider extends ContentProvider {
             + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food_data";
     public static final String FOOD_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
             + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food_data";
+
+    private static final int LIST_FOOD = 0;
+    private static final int ITEM_FOOD = 1;
+    private static final UriMatcher sURIMatcher = buildUriMatcher();
 
     
 
