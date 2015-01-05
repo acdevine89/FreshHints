@@ -15,10 +15,18 @@ public class FoodProvider extends ContentProvider {
     private static final String DATABASE_NAME = "food_data";
     private static final String DATABASE_TABLE = "food_table";
 
-    public static final String COLUMN_FOODID = "_id";
+    public static final String COLUMN_ROWID = "_id";
+    public static final String COLUMN_FOODID = "food_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DAYSLEFT = "days_left";
     public static final String COLUMN_TIPS = "tips";
+
+    private static final String DATABASE_CREATE = "create table "
+            + DATABASE_TABLE + " (" + COLUMN_ROWID
+            + " integer primary key autoincrement, " + COLUMN_FOODID
+            + " text not null, " + COLUMN_NAME + " text not null, "
+            + COLUMN_DAYSLEFT + " integer not null, " + COLUMN_TIPS
+            + " text not null);";
 
     @Override
     public boolean onCreate() {
