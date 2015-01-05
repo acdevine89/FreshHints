@@ -55,6 +55,9 @@ public class FoodProvider extends ContentProvider {
 
     }
 
+    public static String AUTHORITY = "freshhints.example.com.freshhints.models.FoodProvider";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/reminder");
+
     @Override
     public Cursor query(Uri uri, String[] strings, String s, String[] strings2, String s2) {
         return null;
