@@ -1,6 +1,7 @@
 package freshhints.example.com.freshhints.models;
 
 import android.content.ContentProvider;
+import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -57,6 +58,13 @@ public class FoodProvider extends ContentProvider {
 
     public static String AUTHORITY = "freshhints.example.com.freshhints.models.FoodProvider";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/reminder");
+
+    public static final String FOODS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
+            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food_data";
+    public static final String FOOD_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
+            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food_data";
+
+    
 
     @Override
     public Cursor query(Uri uri, String[] strings, String s, String[] strings2, String s2) {
