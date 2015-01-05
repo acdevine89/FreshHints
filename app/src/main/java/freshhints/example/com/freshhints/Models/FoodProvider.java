@@ -58,7 +58,7 @@ public class FoodProvider extends ContentProvider {
     }
 
     public static String AUTHORITY = "freshhints.example.com.freshhints.models.FoodProvider";
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/reminder");
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/food");
 
     public static final String FOODS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
             + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food_data";
@@ -69,7 +69,12 @@ public class FoodProvider extends ContentProvider {
     private static final int ITEM_FOOD = 1;
     private static final UriMatcher sURIMatcher = buildUriMatcher();
 
-    
+    private static UriMatcher buildUriMatcher() {
+        UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
+        matcher.addURI(AUTHORITY, "food", LIST_FOOD);
+        matcher.addURI(AUTHORITY, "food/#", ITEM_FOOD);
+        return matcher;
+    }
 
     @Override
     public Cursor query(Uri uri, String[] strings, String s, String[] strings2, String s2) {
@@ -78,7 +83,14 @@ public class FoodProvider extends ContentProvider {
 
     @Override
     public String getType(Uri uri) {
-        return null;
+        switch (sURIMatcher.match(uri)) {
+            case LIST_FOOD:
+                return FOODS_MIME_TYPE;
+            case ITEM_FOOD;
+                return FOOD_MIME_TYPE;
+            default:
+                throw new IllegalArgumentException("Unknown Uri: " + uri);
+        }
     }
 
     @Override
