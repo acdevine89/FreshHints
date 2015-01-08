@@ -128,7 +128,10 @@ public class FoodProvider extends ContentProvider {
 
     @Override
     public Uri insert(Uri uri, ContentValues contentValues) {
-        return null;
+        contentValues.remove(FoodProvider.COLUMN_ROWID);
+        long id = mDb.insertOrThrow(FoodProvider.DATABASE_TABLE, null, contentValues);
+        getContext().getContentResolver().notifyChange(uri, null);
+        return ContentUris.withAppendedId(uri, id);
     }
 
     @Override
