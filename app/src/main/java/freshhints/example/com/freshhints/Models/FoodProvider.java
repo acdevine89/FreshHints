@@ -20,15 +20,14 @@ public class FoodProvider extends ContentProvider {
     private static final String DATABASE_TABLE = "food_table";
 
     public static final String COLUMN_ROWID = "_id";
-    public static final String COLUMN_FOODID = "food_id";
+    //public static final String COLUMN_FOODID = "food_id";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DAYSLEFT = "days_left";
     public static final String COLUMN_TIPS = "tips";
 
     private static final String DATABASE_CREATE = "create table "
             + DATABASE_TABLE + " (" + COLUMN_ROWID
-            + " integer primary key autoincrement, " + COLUMN_FOODID
-            + " text not null, " + COLUMN_NAME + " text not null, "
+            + " integer primary key autoincrement, " + COLUMN_NAME + " text not null, "
             + COLUMN_DAYSLEFT + " integer not null, " + COLUMN_TIPS
             + " text not null);";
 
@@ -40,8 +39,13 @@ public class FoodProvider extends ContentProvider {
         return true;
     }
 
+// Implementation of SQLiteOpenHelper
     private static class DatabaseHelper extends SQLiteOpenHelper {
         DatabaseHelper(Context context) {
+            // Call made to the base SQLiteOpenHelper constructor. This call creates,
+            // opens, and/or manages a database, which isn't created or opened until
+            // getReadableDatabase() or getWriteableDatabase() is called on the
+            //SQLiteOpenHelper instance
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
 
@@ -60,15 +64,17 @@ public class FoodProvider extends ContentProvider {
     public static String AUTHORITY = "freshhints.example.com.freshhints.models.FoodProvider";
     public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/food");
 
+    // MIME types used for searching words or looking up a single definition
     public static final String FOODS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food_data";
+            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food";
     public static final String FOOD_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food_data";
+            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food";
 
     private static final int LIST_FOOD = 0;
     private static final int ITEM_FOOD = 1;
     private static final UriMatcher sURIMatcher = buildUriMatcher();
 
+    // Builds up a UriMatcher for search suggestion and shortcut refresh queries
     private static UriMatcher buildUriMatcher() {
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
         matcher.addURI(AUTHORITY, "food", LIST_FOOD);
