@@ -43,6 +43,13 @@ public class ViewFoodFragment extends BaseFragment implements AdapterView.OnItem
         return v;
     }
 
+// If switching to ListFragment, this will support showing a message when the list is empty
+//    @Override
+//    public void onActivityCreated(Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        setEmptyText(getResources().getString(R.string.no_food_yet));
+//    }
+
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
