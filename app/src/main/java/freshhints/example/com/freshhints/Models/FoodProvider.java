@@ -2,6 +2,7 @@ package freshhints.example.com.freshhints.models;
 
 import android.content.ContentProvider;
 import android.content.ContentResolver;
+import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.UriMatcher;
@@ -15,15 +16,27 @@ import android.net.Uri;
  */
 public class FoodProvider extends ContentProvider {
 
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "food_data";
-    private static final String DATABASE_TABLE = "food_table";
+    public static String AUTHORITY = "freshhints.example.com.freshhints.models.FoodProvider";
+    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/food");
 
+    // MIME types used for searching words or looking up a single definition
+    public static final String FOODS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
+            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food";
+    public static final String FOOD_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
+            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food";
+
+    // Database Columns
     public static final String COLUMN_ROWID = "_id";
     //public static final String COLUMN_FOODID = "food_id";
+    //public static final String COLUMN_DATE = "reminder_date";
     public static final String COLUMN_NAME = "name";
     public static final String COLUMN_DAYSLEFT = "days_left";
     public static final String COLUMN_TIPS = "tips";
+
+    // Database Related Constants
+    private static final int DATABASE_VERSION = 1;
+    private static final String DATABASE_NAME = "food_data";
+    private static final String DATABASE_TABLE = "food_table";
 
     private static final String DATABASE_CREATE = "create table "
             + DATABASE_TABLE + " (" + COLUMN_ROWID
@@ -31,7 +44,19 @@ public class FoodProvider extends ContentProvider {
             + COLUMN_DAYSLEFT + " integer not null, " + COLUMN_TIPS
             + " text not null);";
 
+    private static final int LIST_FOOD = 0;
+    private static final int ITEM_FOOD = 1;
+    private static final UriMatcher sURIMatcher = buildUriMatcher();
+
     private SQLiteDatabase mDb;
+
+    // Builds up a UriMatcher for search suggestion and shortcut refresh queries
+    private static UriMatcher buildUriMatcher() {
+        UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
+        matcher.addURI(AUTHORITY, "food", LIST_FOOD);
+        matcher.addURI(AUTHORITY, "food/#", ITEM_FOOD);
+        return matcher;
+    }
 
     @Override
     public boolean onCreate() {
@@ -58,33 +83,35 @@ public class FoodProvider extends ContentProvider {
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             throw new UnsupportedOperationException();
         }
-
     }
 
-    public static String AUTHORITY = "freshhints.example.com.freshhints.models.FoodProvider";
-    public static final Uri CONTENT_URI = Uri.parse("content://" + AUTHORITY + "/food");
 
-    // MIME types used for searching words or looking up a single definition
-    public static final String FOODS_MIME_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food";
-    public static final String FOOD_MIME_TYPE = ContentResolver.CURSOR_ITEM_BASE_TYPE
-            + "/vnd.freshhints.example.com.freshhints.models.FoodProvider.food";
-
-    private static final int LIST_FOOD = 0;
-    private static final int ITEM_FOOD = 1;
-    private static final UriMatcher sURIMatcher = buildUriMatcher();
-
-    // Builds up a UriMatcher for search suggestion and shortcut refresh queries
-    private static UriMatcher buildUriMatcher() {
-        UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
-        matcher.addURI(AUTHORITY, "food", LIST_FOOD);
-        matcher.addURI(AUTHORITY, "food/#", ITEM_FOOD);
-        return matcher;
-    }
 
     @Override
-    public Cursor query(Uri uri, String[] strings, String s, String[] strings2, String s2) {
-        return null;
+    public Cursor query(Uri uri, String[] ignored1, String ignored2,
+                        String[] ignored3, String ignored4) {
+
+        String[] projection = new String[] { FoodProvider.COLUMN_ROWID,
+        FoodProvider.COLUMN_NAME, FoodProvider.COLUMN_DAYSLEFT, FoodProvider.COLUMN_TIPS };
+
+        // Use the UriMatcher to see the query type and format the db query accordingly
+        Cursor c;
+        switch (sURIMatcher.match(uri)) {
+            case LIST_FOOD:
+                c = mDb.query(FoodProvider.DATABASE_TABLE, projection,
+                        FoodProvider.COLUMN_ROWID + "=?", new String[]
+                        { Long.toString(ContentUris.parseId(uri)) },
+                        null, null, null, null);
+                if (c != null && c.getCount() > 0) {
+                    c.moveToFirst();
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Unknown Uri: " + uri);
+        }
+
+        c.setNotificationUri(getContext().getContentResolver(), uri);
+        return c;
     }
 
     @Override
