@@ -86,7 +86,7 @@ public class FoodProvider extends ContentProvider {
         switch (sURIMatcher.match(uri)) {
             case LIST_FOOD:
                 return FOODS_MIME_TYPE;
-            case ITEM_FOOD;
+            case ITEM_FOOD:
                 return FOOD_MIME_TYPE;
             default:
                 throw new IllegalArgumentException("Unknown Uri: " + uri);
