@@ -135,8 +135,12 @@ public class FoodProvider extends ContentProvider {
     }
 
     @Override
-    public int delete(Uri uri, String s, String[] strings) {
-        return 0;
+    public int delete(Uri uri, String ignored1, String[] ignored2) {
+        int count = mDb.delete(FoodProvider.DATABASE_TABLE, FoodProvider.COLUMN_ROWID + "=?",
+                new String[] { Long.toString(ContentUris.parseId(uri)) });
+        if (count > 0)
+            getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 
     @Override
