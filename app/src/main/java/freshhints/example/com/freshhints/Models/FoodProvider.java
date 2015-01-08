@@ -144,7 +144,11 @@ public class FoodProvider extends ContentProvider {
     }
 
     @Override
-    public int update(Uri uri, ContentValues contentValues, String s, String[] strings) {
-        return 0;
+    public int update(Uri uri, ContentValues contentValues, String ignored1, String[] ignored2) {
+        int count = mDb.update(FoodProvider.DATABASE_TABLE, values, COLUMN_ROWID + "=?",
+                new String[] { Long.toString(ContentUris.parseId(uri)) });
+        if (count > 0)
+            getContext().getContentResolver().notifyChange(uri, null);
+        return count;
     }
 }
