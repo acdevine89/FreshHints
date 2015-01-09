@@ -64,29 +64,6 @@ public class FoodProvider extends ContentProvider {
         return true;
     }
 
-// Implementation of SQLiteOpenHelper
-    private static class DatabaseHelper extends SQLiteOpenHelper {
-        DatabaseHelper(Context context) {
-            // Call made to the base SQLiteOpenHelper constructor. This call creates,
-            // opens, and/or manages a database, which isn't created or opened until
-            // getReadableDatabase() or getWriteableDatabase() is called on the
-            //SQLiteOpenHelper instance
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        }
-
-        @Override
-        public void onCreate(SQLiteDatabase db) {
-            db.execSQL(DATABASE_CREATE);
-        }
-
-        @Override
-        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            throw new UnsupportedOperationException();
-        }
-    }
-
-
-
     @Override
     public Cursor query(Uri uri, String[] ignored1, String ignored2,
                         String[] ignored3, String ignored4) {
@@ -98,6 +75,10 @@ public class FoodProvider extends ContentProvider {
         Cursor c;
         switch (sURIMatcher.match(uri)) {
             case LIST_FOOD:
+                c = mDb.query(FoodProvider.DATABASE_TABLE, projection, null, null,
+                        null, null, null);
+                break;
+            case ITEM_FOOD:
                 c = mDb.query(FoodProvider.DATABASE_TABLE, projection,
                         FoodProvider.COLUMN_ROWID + "=?", new String[]
                         { Long.toString(ContentUris.parseId(uri)) },
@@ -112,18 +93,6 @@ public class FoodProvider extends ContentProvider {
 
         c.setNotificationUri(getContext().getContentResolver(), uri);
         return c;
-    }
-
-    @Override
-    public String getType(Uri uri) {
-        switch (sURIMatcher.match(uri)) {
-            case LIST_FOOD:
-                return FOODS_MIME_TYPE;
-            case ITEM_FOOD:
-                return FOOD_MIME_TYPE;
-            default:
-                throw new IllegalArgumentException("Unknown Uri: " + uri);
-        }
     }
 
     @Override
@@ -145,10 +114,44 @@ public class FoodProvider extends ContentProvider {
 
     @Override
     public int update(Uri uri, ContentValues contentValues, String ignored1, String[] ignored2) {
-        int count = mDb.update(FoodProvider.DATABASE_TABLE, values, COLUMN_ROWID + "=?",
+        int count = mDb.update(FoodProvider.DATABASE_TABLE, contentValues, COLUMN_ROWID + "=?",
                 new String[] { Long.toString(ContentUris.parseId(uri)) });
         if (count > 0)
             getContext().getContentResolver().notifyChange(uri, null);
         return count;
     }
+
+    @Override
+    public String getType(Uri uri) {
+        switch (sURIMatcher.match(uri)) {
+            case LIST_FOOD:
+                return FOODS_MIME_TYPE;
+            case ITEM_FOOD:
+                return FOOD_MIME_TYPE;
+            default:
+                throw new IllegalArgumentException("Unknown Uri: " + uri);
+        }
+    }
+
+    // Implementation of SQLiteOpenHelper
+    private static class DatabaseHelper extends SQLiteOpenHelper {
+        DatabaseHelper(Context context) {
+            // Call made to the base SQLiteOpenHelper constructor. This call creates,
+            // opens, and/or manages a database, which isn't created or opened until
+            // getReadableDatabase() or getWriteableDatabase() is called on the
+            //SQLiteOpenHelper instance
+            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+        }
+
+        @Override
+        public void onCreate(SQLiteDatabase db) {
+            db.execSQL(DATABASE_CREATE);
+        }
+
+        @Override
+        public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+            throw new UnsupportedOperationException();
+        }
+    }
+
 }
