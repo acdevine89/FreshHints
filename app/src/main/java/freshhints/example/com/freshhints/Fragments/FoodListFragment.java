@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
+import android.support.v4.content.CursorLoader;
+import android.support.v4.content.Loader;
 import android.support.v7.internal.widget.AdapterViewCompat;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +21,7 @@ import freshhints.example.com.freshhints.models.FoodProvider;
 /**
  * Created by anniedevine on 1/9/15.
  */
-public class FoodListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor> {
+public class FoodListFragment extends ListFragment implements LoaderManager.LoaderCallbacks<Cursor>, android.support.v4.app.LoaderManager.LoaderCallbacks<Object> {
 
     private SimpleCursorAdapter mAdapter;
 
@@ -58,8 +60,13 @@ public class FoodListFragment extends ListFragment implements LoaderManager.Load
         //.putExtra(FoodProvider.COLUMN_ROWID, id));
     }
 
-    @Override
-    public boolean onContextItemSelected(MenuItem item) {
+ //   @Override
+   // public boolean onContextItemSelected(MenuItem item) {
+// This will handle user context menu events that occur when they first long-press the task
+// and then select a menu item from the context menu. getMenuInfo() obtains an instance of
+// AdapterContextMenuInfo, which has info about the item the user long-pressed. Also gets a
+// ContentResolver and requests that it delete the food whose ID is retrieved from the
+// AdapterContextMenuInfo object's id field.
 //        switch (item.getItemId()) {
 //            case R.id.menu_delete:
 //                AdapterViewCompat.AdapterContextMenuInfo info =
@@ -69,6 +76,25 @@ public class FoodListFragment extends ListFragment implements LoaderManager.Load
 //                return true;
 //        }
 //        return super.onContextItemSelected(item);
+ //   }
+
+    @Override
+    public android.content.Loader<Cursor> onCreateLoader(int ignored, final Bundle args) {
+        return new android.content.CursorLoader(getActivity(), FoodProvider.CONTENT_URI, null, null, null, null);
     }
+
+
+    @Override
+    public void onLoadFinished(android.content.Loader<Cursor> cursorLoader, Cursor cursor) {
+        mAdapter.swapCursor(cursor);
+    }
+
+    @Override
+    public void onLoaderReset(android.content.Loader<Cursor> cursorLoader) {
+        // Called when the last Cursor provided to onLoadFinished() above is about to be closed.
+        // Set the cursor to null here to make sure the adapter is no longer using it.
+        mAdapter.swapCursor(null);
+    }
+
 
 }
