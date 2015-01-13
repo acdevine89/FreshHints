@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -55,7 +54,7 @@ public class FoodListAdapter extends ArrayAdapter<Food> {
 
         public ViewHolder(View rootView) {
             this.nameTextView = (TextView) rootView.findViewById(R.id.name_text);
-            this.daysLeftTextView = (TextView) rootView.findViewById(R.id.last_active_text);
+            this.daysLeftTextView = (TextView) rootView.findViewById(R.id.days_left_text);
 //            this.foodDetailsButton = (Button) rootView.findViewById(R.id.food_details_button);
 //            this.deleteButton = (Button) rootView.findViewById(R.id.delete_button);
         }

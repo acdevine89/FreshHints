@@ -3,6 +3,8 @@
     package="freshhints.example.com.freshhints" >
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <provider
         android:name="freshhints.example.com.freshhints.models.FoodProvider"
@@ -23,6 +25,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <receiver android:name=".OnBootReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".OnAlarmReceiver" />
+        <service android:name=".ReminderService" />
+
     </application>
 
 </manifest>
