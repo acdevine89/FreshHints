@@ -7,6 +7,6 @@ import android.app.ListActivity;
  */
 public class FoodListActivity extends ListActivity {
 
-    
+
 
 }
